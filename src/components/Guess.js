@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const styles = {
-    input: {
+    letterInput: {
         "border": 0,
         "outline": 0,
         "background": "transparent",
@@ -18,11 +18,8 @@ const styles = {
         "textAlign": "center",
         "marginBottom": "5%"
     },
-    container: {
-        "display": "flex",
-        "flexDirection": "row",
-        "flexWrap": "wrap"
-    }
+
+
 }
 
 export default function Guess({ length, submitHandler, indexArray, guess }) {
@@ -44,19 +41,21 @@ export default function Guess({ length, submitHandler, indexArray, guess }) {
     }, [indexArray]);
 
 
+    let counter = 0;
     function renderInputs() {
         let inputArray = [];
         for (let i = 1; i <= length; i++) {
             // if charMap has a key at i then there was a correctly guessed letter in that position. We set input value to the letter at that key in charMap. Otherwise we render a blank input
             if (charMap[i]) {
-                inputArray.push(<input key={i} aria-label={`letter #${i}`} alt="guess input" style={styles.input} maxLength={1} value={charMap[i]} disabled />)
+                counter++
+                console.log("counter", counter)
+                inputArray.push(<input key={i} aria-label={`letter #${i} is ${charMap[i]}`} alt="guess input" style={styles.letterInput} maxLength={1} value={charMap[i]} disabled />)
             } else {
-                inputArray.push(<input key={i} aria-label={`letter #${i}`} alt="guess input" style={styles.input} maxLength={1} value={""} disabled />)
+                inputArray.push(<input key={i} aria-label={`letter #${i} is blank. What letter do you think it is? Make a guess.`} alt="guess input" style={styles.letterInput} maxLength={1} value={""} disabled />)
             };
         };
         return inputArray;
     };
-    console.log("render", indexArray, charMap)
     return (
         <>
             <div>
@@ -81,6 +80,7 @@ export default function Guess({ length, submitHandler, indexArray, guess }) {
                 null
 
             }
+            {counter === length ? <h1 className="win">You Win</h1> : console.log("no win")}
 
         </>
     )
