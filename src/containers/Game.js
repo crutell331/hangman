@@ -26,11 +26,10 @@ export const Game = () => {
     }, []);
 
     async function submitHandler(e) {
-        console.log("in submit handler")
         // send get request with the letter that was guessed and the slug
         e.preventDefault();
-        let guess = e.target[0].value;
-        fetch(`http://localhost:5000/api/words?guess=${guess}`, {
+        let letter = e.target[0].value;
+        fetch(`http://localhost:5000/api/words?guess=${letter}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -39,13 +38,13 @@ export const Game = () => {
             }
         })
             .then(resp => resp.json())
+            // Grab index array from response and set state
             .then(indexArray => {
                 if (indexArray.length === 0) {
                     let num = ++wrongAnswerCount
-                    console.log("in submit num", num)
                     incrementWrongAnswer(num);
                 } else {
-                    setGuess();
+                    setGuess(letter);
                     setIndexArray(indexArray);
                 };
             })
