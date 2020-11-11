@@ -99,50 +99,45 @@ export const Canvas = (props) => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
         ctx.lineWidth = 2;
-        ctx.translate(.5, .5);
-        renderPlatform(ctx);
-
         switch (props.wrongAnswerCount) {
             case 1:
                 renderBodyPart("head", ctx);
                 break;
             case 2:
-                renderBodyPart("head", ctx);
                 renderBodyPart("body", ctx);
                 break;
             case 3:
-                renderBodyPart("head", ctx);
-                renderBodyPart("body", ctx);
                 renderBodyPart("right arm", ctx);
                 break;
             case 4:
-                renderBodyPart("head", ctx);
-                renderBodyPart("body", ctx);
-                renderBodyPart("right arm", ctx);
                 renderBodyPart("left arm", ctx);
                 break;
             case 5:
-                renderBodyPart("head", ctx);
-                renderBodyPart("body", ctx);
-                renderBodyPart("right arm", ctx);
-                renderBodyPart("left arm", ctx);
                 renderBodyPart("right leg", ctx);
                 break;
             case 6:
-                renderBodyPart("head", ctx);
-                renderBodyPart("body", ctx);
-                renderBodyPart("right arm", ctx);
-                renderBodyPart("left arm", ctx);
-                renderBodyPart("right leg", ctx);
                 renderBodyPart("left leg", ctx);
                 break;
             default:
                 break;
         }
     }, [props.wrongAnswerCount]);
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+        ctx.lineWidth = 2;
+        ctx.translate(.5, .5);
+        renderPlatform(ctx);
+    }, []);
+
     return (
-        <canvas ref={canvasRef} id="my-canvas" style={{ width: "60vw", height: "70vh", borderStyle: "solid" }}>
+        <canvas ref={canvasRef} id="my-canvas" style={style} >
 
         </canvas>
     );
 };
+
+const style = {
+    "width": "60vw",
+    "height": "65vh",
+}
