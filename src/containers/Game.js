@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Canvas } from '../components/Canvas';
 import Guess from '../components/Guess';
+import WinLoss from '../components/WinLoss';
 
 const styles = {
     game: {
@@ -9,35 +10,35 @@ const styles = {
         display: "flex",
         "flexDirection": "column",
     },
-    overlay: {
-        position: "fixed",
-        display: "block",
-        width: "100%",
-        height: "100%",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        "backgroundColor": "rgba(0,0,0,0.5)",
-        zIndex: 2,
-    },
-    overlayHeader: {
-        position: "absolute",
-        top: "40%",
-        left: "50%",
-        fontSize: "4rem",
-        color: "white",
-        transform: "translate(-50%, -50%)",
-    },
-    overlaySubHeader: {
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        fontSize: "2.5rem",
-        color: "white",
-        transform: "translate(-50%, -50%)",
-        cursor: "pointer"
-    }
+    // overlay: {
+    //     position: "fixed",
+    //     display: "block",
+    //     width: "100%",
+    //     height: "100%",
+    //     top: 0,
+    //     left: 0,
+    //     right: 0,
+    //     bottom: 0,
+    //     "backgroundColor": "rgba(0,0,0,0.5)",
+    //     zIndex: 2,
+    // },
+    // overlayHeader: {
+    //     position: "absolute",
+    //     top: "40%",
+    //     left: "50%",
+    //     fontSize: "4rem",
+    //     color: "white",
+    //     transform: "translate(-50%, -50%)",
+    // },
+    // overlaySubHeader: {
+    //     position: "absolute",
+    //     top: "50%",
+    //     left: "50%",
+    //     fontSize: "2.5rem",
+    //     color: "white",
+    //     transform: "translate(-50%, -50%)",
+    //     cursor: "pointer"
+    // }
 };
 
 export const Game = () => {
@@ -83,18 +84,12 @@ export const Game = () => {
             .catch(console.log)
     };
 
-    function reload() {
-        window.location.reload();
-    };
     return (
         <div className="game" style={styles.game}>
             <Canvas wrongAnswerCount={wrongAnswerCount} />
             <Guess length={wordLength} submitHandler={submitHandler} indexArray={indexArray} guess={guess} />
             {wrongAnswerCount === 6 ?
-                <div style={styles.overlay}>
-                    <h2 style={styles.overlayHeader}>You Lose!</h2>
-                    <h3 style={styles.overlaySubHeader} onClick={() => reload()}>Try Again?</h3>
-                </div>
+                <WinLoss loss />
                 :
                 null}
         </div>);

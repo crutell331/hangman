@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import WinLoss from './WinLoss';
 
 const styles = {
     letterInput: {
@@ -80,7 +81,11 @@ export default function Guess({ length, submitHandler, indexArray, guess }) {
                 null
 
             }
-            {counter === length ? <h1 className="win">You Win</h1> : console.log("no win")}
+            {length > 0 && counter === length ?
+                <>
+                    <WinLoss />
+                </>
+                : null}
 
         </>
     )
